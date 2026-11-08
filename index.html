@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inkwell Blog</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--tx:#1d1d1f;--mu:#6b6b72;--bd:#e4e4e0;--ac:#2563eb;--ac2:#dbe7ff;--r:14px;--sh:0 2px 10px rgba(0,0,0,.06);--hf:system-ui,sans-serif;--bf:system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-a=rose]{--ac:#e11d48;--ac2:#ffe1e8}:root[data-a=forest]{--ac:#15803d;--ac2:#d9f5e3}
+:root[data-f=serif]{--hf:Georgia,'Times New Roman',serif}:root[data-f=mono]{--hf:ui-monospace,Menlo,monospace}:root[data-f=serif]{--bf:Georgia,serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#121214;--card:#1c1c20;--tx:#ececf0;--mu:#9a9aa5;--bd:#2c2c33;--ac2:#25304d;--sh:none}}
+:root[data-theme=dark]{--bg:#121214;--card:#1c1c20;--tx:#ececf0;--mu:#9a9aa5;--bd:#2c2c33;--ac2:#25304d;--sh:none}
+html{height:100%}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 var(--bf);transition:background .25s,color .25s}
+h1,h2,h3{font-family:var(--hf);margin:.2em 0}a{color:var(--ac)}
+.app{display:flex;min-height:100vh}.side{width:210px;padding:18px 12px;border-right:1px solid var(--bd);background:var(--card);position:sticky;top:0;height:100vh;flex:none}
+.side .logo{font:700 20px var(--hf);padding:4px 10px 14px}.nav a,.nav button{display:block;width:100%;text-align:left;padding:9px 12px;margin:2px 0;border-radius:10px;color:var(--tx);text-decoration:none;background:none;border:0;font:inherit;cursor:pointer;transition:.15s}
+.nav a:hover,.nav button:hover{background:var(--ac2)}.nav a.on{background:var(--ac);color:#fff}
+.main{flex:1;min-width:0}.top{display:flex;gap:10px;align-items:center;padding:12px 20px;border-bottom:1px solid var(--bd);background:var(--card);position:sticky;top:0;z-index:5}
+.top input{flex:1;max-width:420px}.wrap{padding:20px;max-width:1000px;margin:auto}
+input,select,textarea,button.b{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:9px 12px}
+textarea{width:100%}button.b{cursor:pointer;background:var(--ac);color:#fff;border-color:var(--ac);transition:.15s}button.b.g{background:none;color:var(--tx);border-color:var(--bd)}button.b.d{background:#dc2626;border-color:#dc2626}button.b:hover{filter:brightness(1.08)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;cursor:pointer;transition:transform .15s}.card:hover{transform:translateY(-3px)}
+.card .im{height:140px;background:var(--ac2) center/cover}.card .bd{padding:14px}.chip{display:inline-block;padding:3px 11px;border-radius:99px;background:var(--ac2);color:var(--ac);font-size:12.5px;margin:0 6px 6px 0;cursor:pointer;border:0}.chip.on{background:var(--ac);color:#fff}
+.mu{color:var(--mu);font-size:13px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.box{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin:12px 0}
+.ed{min-height:260px;border:1px solid var(--bd);border-radius:10px;padding:12px;background:var(--bg)}.tb{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.tb button,.tb select{padding:5px 9px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+.post img{max-width:100%;border-radius:10px}.sk{height:190px;border-radius:var(--r);background:linear-gradient(90deg,var(--bd),var(--ac2),var(--bd));background-size:200% 100%;animation:s 1.2s infinite}@keyframes s{to{background-position:-200% 0}}
+#toast{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;z-index:20}#toast div{background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:10px;box-shadow:var(--sh)}
+.empty{text-align:center;padding:50px 10px;color:var(--mu)}label{display:block;margin:10px 0 4px;font-weight:600}
+.hero{border-radius:20px;padding:34px 26px;margin-bottom:18px;color:#fff;background:linear-gradient(135deg,var(--ac),#7c3aed 60%,#ec4899);animation:fi .5s}.hero h1{font-size:30px;margin:0 0 6px}.hero p{margin:0 0 16px;opacity:.92}.hero .b{background:#fff;color:#111;border-color:#fff}.hero .b.g{background:transparent;color:#fff;border-color:#fffa}
+.card{animation:fi .45s both}.card .im{display:grid;place-items:center;font-size:46px}.card:hover{box-shadow:0 10px 26px rgba(0,0,0,.14)}@keyframes fi{from{opacity:0;transform:translateY(10px)}}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.stats div{background:#ffffff30;padding:5px 14px;border-radius:99px;font-size:13px}.logo{cursor:pointer}
+@media(max-width:760px){.app{flex-direction:column}.side{width:100%;height:auto;position:static;border:0;border-bottom:1px solid var(--bd)}.nav{display:flex;overflow-x:auto;gap:4px}.nav a,.nav button{white-space:nowrap;width:auto}.side .logo{padding-bottom:6px}}
+</style>
+</head><body><div id="root"><div class="wrap"><div class="sk"></div></div></div><div id="toast"></div>
+<script>
+window.INKWELL_API_URL='';
+/* Talks to the Express backend. Gives the app the same db interface it used before. */
+(function () {
+  const BASE = (window.INKWELL_API_URL || '').replace(/\/$/, '') + '/api';
+  async function call(method, url, body) {
+    let r;
+    try { r = await fetch(BASE + url, { method, credentials: 'include', headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined }); }
+    catch (e) { throw new Error('Cannot reach the server'); }
+    let j = {}; try { j = await r.json(); } catch (e) {}
+    if (!r.ok) { const err = new Error(j.error || 'Request failed'); err.status = r.status; throw err; }
+    return j;
+  }
+  window.api = { get: u => call('GET', u), post: (u, b) => call('POST', u, b || {}), put: (u, b) => call('PUT', u, b) };
+  const subs = new Set(), poke = () => subs.forEach(f => f());
+  setInterval(() => { if (!document.hidden && subs.size) poke(); }, 5000);
+  function watch(load, cb, err) {
+    let dead = false, last = null;
+    const run = async () => {
+      try { const v = await load(); const s = JSON.stringify(v.raw); if (!dead && s !== last) { last = s; cb(v.snap); } }
+      catch (e) { if (!dead && err && e.status !== 401) err(e); }
+    };
+    subs.add(run); run();
+    return () => { dead = true; subs.delete(run); };
+  }
+  const q = p => '?path=' + encodeURIComponent(p);
+  const idOf = p => p.slice(p.lastIndexOf('/') + 1);
+  const snapOf = (p, d) => ({ id: idOf(p), exists: d != null, data: () => d == null ? undefined : JSON.parse(JSON.stringify(d)) });
+  async function readDoc(p) {
+    try { const j = await call('GET', '/data/doc' + q(p)); return { raw: j.data, snap: snapOf(p, j.data) }; }
+    catch (e) { if (e.status === 404) return { raw: null, snap: snapOf(p, null) }; throw e; }
+  }
+  const docRef = p => ({
+    id: idOf(p), path: p,
+    get: async () => (await readDoc(p)).snap,
+    set: async d => { await call('PUT', '/data/doc' + q(p), d); poke(); },
+    update: async d => { await call('PATCH', '/data/doc' + q(p), d); poke(); },
+    delete: async () => { await call('DELETE', '/data/doc' + q(p)); poke(); },
+    onSnapshot: (cb, err) => watch(() => readDoc(p), cb, err)
+  });
+  const nid = () => 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  window.remoteDB = {
+    doc: docRef,
+    collection: c => ({
+      doc: id => docRef(c + '/' + (id || nid())),
+      add: async d => { const r = docRef(c + '/' + nid()); await r.set(d); return r; },
+      onSnapshot: (cb, err) => watch(async () => {
+        const j = await call('GET', '/data/collection' + q(c));
+        return { raw: j.docs, snap: { docs: j.docs.map(x => ({ id: x.id, data: () => JSON.parse(JSON.stringify(x.data)) })) } };
+      }, cb, err)
+    })
+  };
+})();
+
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CATS=['Technology','Lifestyle','Travel','Food','Business','Education'],PER=6;
+function clean(h){const d=new DOMParser().parseFromString(h||'','text/html'),ok=new Set('P,BR,B,STRONG,I,EM,U,H1,H2,H3,UL,OL,LI,A,IMG,BLOCKQUOTE,SPAN,DIV,FONT,PRE,CODE'.split(','));
+(function w(n){[...n.children].forEach(c=>{if(!ok.has(c.tagName)){c.remove();return}[...c.attributes].forEach(a=>{const k=a.name,v=a.value;
+const g=(c.tagName==='A'&&k==='href'&&/^(https?:|mailto:)/i.test(v))||(c.tagName==='IMG'&&k==='src'&&/^(https?:|data:image\/(png|jpe?g|gif|webp);)/i.test(v))||(['style','size','face','alt'].includes(k)&&!/url\(|expression|javascript/i.test(v));if(!g)c.removeAttribute(k)});
+if(c.tagName==='A'){c.target='_blank';c.rel='noopener noreferrer'}w(c)})})(d.body);return d.body.innerHTML}
+const S={profiles:[],posts:[],likes:[],views:[],comments:[],marks:new Set(),names:{},q:'',cat:'',page:1,ready:{},prof:{}};let db,usr,uid,me,unsubs=[];
+const sg=(k,d)=>{try{return localStorage.getItem(k)||d}catch(e){return d}},ss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+function applyPrefs(){const r=document.documentElement;const t=sg('theme','');t?r.dataset.theme=t:delete r.dataset.theme;r.dataset.a=sg('acc','blue');r.dataset.f=sg('font','sans')}
+function toast(m){const d=document.createElement('div');d.textContent=m;$('#toast').append(d);setTimeout(()=>d.remove(),3000)}
+const nm=id=>S.names[id]||'Someone',dt=t=>new Date(t).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+const cnt=(a,p)=>a.filter(x=>x.post===p).length,pub=()=>S.posts.filter(p=>p.status==='published');
+const plain=h=>{const d=document.createElement('div');d.innerHTML=clean(h);return d.textContent};
+async function names(){S.profiles.forEach(p=>S.names[p.id]=p.fullName)}
+function sub(col,key,map){unsubs.push(db.collection(col).onSnapshot(s=>{S[key]=s.docs.map(map||(d=>({id:d.id,...d.data()})));S.ready[key]=1;names().then(()=>refresh())},e=>toast('Database error: '+e.message)))}
+async function init(){applyPrefs();
+ try{db=window.localDB}catch(e){}
+ if(!db||!usr){$('#root').innerHTML='<div class="wrap"><div class="box empty"><h2>Sign in to continue</h2><p>Your browser could not start the local database.</p></div></div>';return}
+ me=await usr.me();uid=await usr.id();
+ sub('posts','posts');sub('likes','likes');sub('views','views');sub('comments','comments');
+ unsubs.push(db.collection(`data/users/${uid}/bookmarks`).onSnapshot(s=>{S.marks=new Set(s.docs.map(d=>d.id));refresh()}));
+ unsubs.push(db.doc(`data/users/${uid}/profile/me`).onSnapshot(s=>{S.prof=s.data()||{};S.ready.prof=1;refresh()}));
+ addEventListener('hashchange',()=>{S.page=1;render()});render()}
+let editing=false;let rt;function refresh(){if(editing)return;clearTimeout(rt);rt=setTimeout(()=>{if(!editing)render()},80)}
+const R=()=>location.hash.slice(1)||'home';
+const EM={Technology:'💻',Lifestyle:'🌿',Travel:'✈️',Food:'🍜',Business:'📈',Education:'🎓'};
+function cov(p){if(p.cover)return `background-image:url('${esc(p.cover)}')`;let h=0;for(const c of p.title+p.category)h=(h*31+c.charCodeAt(0))%360;return `background-image:linear-gradient(135deg,hsl(${h} 70% 62%),hsl(${(h+50)%360} 70% 52%))`}
+function card(p){const lk=cnt(S.likes,p.id);return `<div class="card" data-a="open" data-i="${p.id}"><div class="im" style="${cov(p)}">${p.cover?'':EM[p.category]||'✍'}</div><div class="bd"><span class="chip">${esc(p.category)}</span>${p.status==='draft'?'<span class="chip">Draft</span>':''}<h3>${esc(p.title)}</h3><div class="mu">${esc(p.desc)}</div><div class="mu" style="margin-top:8px">${esc(nm(p.author))} · ${dt(p.createdAt)} · ♥ ${lk} · 👁 ${cnt(S.views,p.id)} · 💬 ${cnt(S.comments,p.id)}</div></div></div>`}
+function grid(list){return list.length?`<div class="grid">${list.map(card).join('')}</div>`:'<div class="empty">Nothing here yet.</div>'}
+function pager(n){const pg=Math.ceil(n/PER);return pg>1?`<div class="row" style="justify-content:center;margin:18px 0">${Array.from({length:pg},(_,i)=>`<button class="b ${i+1===S.page?'':'g'}" data-a="pg" data-i="${i+1}">${i+1}</button>`).join('')}</div>`:''}
+function chips(){return `<div>${CATS.map(c=>`<button class="chip ${S.cat===c?'on':''}" data-a="cat" data-i="${c}">${c}</button>`).join('')}</div>`}
+function match(p){const q=S.q.toLowerCase();return(!S.cat||p.category===S.cat)&&(!q||(p.title+' '+plain(p.content)+' '+(p.tags||[]).join(' ')).toLowerCase().includes(q))}
+function view(){const r=R();
+ if(!S.ready.posts)return `<div class="grid"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>`;
+ if(r==='home'){const P=pub().sort((a,b)=>b.createdAt-a.createdAt),pop=[...P].sort((a,b)=>cnt(S.views,b.id)-cnt(S.views,a.id)).slice(0,3),f=[...P].sort((a,b)=>cnt(S.likes,b.id)-cnt(S.likes,a.id)).slice(0,1);
+  return `<div class="hero"><h1>Welcome back, ${esc(me.name.split(' ')[0])} 👋</h1><p>Read fresh stories, or share one of your own.</p><div class="row"><button class="b" data-a="new">✍ Write a story</button><button class="b g" data-a="goex">Explore blogs</button></div><div class="stats"><div>${P.length} stories</div><div>${S.comments.length} comments</div><div>${S.likes.length} likes</div></div></div>${chips()}<h3>⭐ Featured</h3>${grid(f)}<h3>🔥 Popular</h3>${grid(pop)}<h3>Recently published</h3>${grid(P.slice(0,6))}`}
+ if(r==='explore'||r==='categories'){const L=pub().filter(match).sort((a,b)=>b.createdAt-a.createdAt);return `<h2>${r==='explore'?'Explore blogs':'Categories'}</h2>${chips()}${grid(L.slice((S.page-1)*PER,S.page*PER))}${pager(L.length)}`}
+ if(r==='mine'){const L=S.posts.filter(p=>p.author===uid).sort((a,b)=>b.updatedAt-a.updatedAt);return `<h2>My blogs</h2>${grid(L)}`}
+ if(r==='create')return editor();
+ if(r.startsWith('post-'))return detail(r.slice(5));
+ if(r==='bookmarks')return `<h2>Bookmarks</h2>${grid(S.posts.filter(p=>S.marks.has(p.id)&&(p.status==='published'||p.author===uid)))}`;
+ if(r==='profile'){const mine=S.posts.filter(p=>p.author===uid);return `<h2>Profile</h2><div class="box"><div class="row"><div class="chip" style="font-size:26px;width:64px;height:64px;display:grid;place-items:center;border-radius:50%;margin:0">${esc((me.name||'?')[0].toUpperCase())}</div><div><h3>${esc(me.name)}</h3><div class="mu">${mine.length} posts · ${S.marks.size} bookmarks</div></div></div>
+  <label>Full name</label><input id="pn" value="${esc(me.name)}"><label>Username</label><input value="${esc(uid)}" disabled><label>Bio</label><textarea id="pb" rows="3">${esc(S.prof.bio||'')}</textarea><p><button class="b" data-a="saveprof">Save profile</button></p><h3>Change password</h3><input id="cp" type="password" placeholder="Current password"> <input id="np" type="password" placeholder="New password (8+ chars)"> <button class="b g" data-a="chpw">Update</button></div>`}
+ if(r==='settings'){const o=(k,d,a)=>a.map(x=>`<option ${sg(k,d)===x?'selected':''}>${x}</option>`).join('');return `<h2>Settings</h2><div class="box"><label>Colour theme</label><select data-a="acc">${o('acc','blue',['blue','rose','forest'])}</select><label>Font pairing</label><select data-a="font">${o('font','sans',['sans','serif','mono'])}</select><label>Mode</label><select data-a="mode"><option value="">System</option><option value="light" ${sg('theme')==='light'?'selected':''}>Light</option><option value="dark" ${sg('theme')==='dark'?'selected':''}>Dark</option></select></div>`}
+ return '<div class="empty">Page not found.</div>'}
+function detail(id){const p=S.posts.find(x=>x.id===id);if(!p)return '<div class="empty">This post could not be found. <a href="#explore">Back to explore</a></div>';
+ if(p.status!=='published'&&p.author!==uid)return '<div class="empty">This post is not published.</div>';
+ const liked=S.likes.some(l=>l.id===id+'_'+uid),own=p.author===uid,cs=S.comments.filter(c=>c.post===id).sort((a,b)=>a.createdAt-b.createdAt);
+ if(!S.views.some(v=>v.id===id+'_'+uid)&&!S._v?.[id]){(S._v=S._v||{})[id]=1;db.doc('views/'+id+'_'+uid).set({post:id,user:uid}).catch(()=>{})}
+ return `<div class="post"><span class="chip">${esc(p.category)}</span><h1>${esc(p.title)}</h1><div class="mu">By ${esc(nm(p.author))} · ${dt(p.createdAt)} · 👁 ${cnt(S.views,id)}</div>${p.cover?`<p><img src="${esc(p.cover)}" alt=""></p>`:`<div style="height:180px;border-radius:14px;font-size:64px;display:grid;place-items:center;margin:10px 0;${cov(p)}">${EM[p.category]||'✍'}</div>`}<div>${clean(p.content)}</div><p>${(p.tags||[]).map(t=>`<span class="chip">#${esc(t)}</span>`).join('')}</p>
+ <div class="row"><button class="b ${liked?'':'g'}" data-a="like" data-i="${id}">♥ ${cnt(S.likes,id)}</button><button class="b g" data-a="mark" data-i="${id}">${S.marks.has(id)?'★ Saved':'☆ Save'}</button><button class="b g" data-a="share" data-i="${id}">Share</button>${own?`<button class="b g" data-a="edit" data-i="${id}">Edit</button><button class="b d" data-a="del" data-i="${id}">Delete</button>`:''}</div></div>
+ <div class="box"><h3>Comments (${cs.length})</h3>${cs.map(c=>`<div style="padding:8px 0;border-top:1px solid var(--bd)"><b>${esc(nm(c.user))}</b> <span class="mu">${dt(c.createdAt)}</span>${c.user===uid?` <a href="#" data-a="delc" data-i="${c.id}">delete</a>`:''}<div>${esc(c.text)}</div></div>`).join('')||'<div class="mu">No comments yet.</div>'}
+ <div class="row" style="margin-top:10px"><input id="ct" style="flex:1" maxlength="1000" placeholder="Add a comment"><button class="b" data-a="addc" data-i="${id}">Post</button></div></div>`}
+let cur=null;
+function editor(){const p=cur||{title:'',desc:'',content:'',category:CATS[0],tags:[],cover:''};editing=true;
+ return `<h2>${cur?'Edit':'Create'} blog</h2><div class="box"><label>Title</label><input id="et" style="width:100%" maxlength="150" value="${esc(p.title)}"><label>Short description</label><input id="ed" style="width:100%" maxlength="300" value="${esc(p.desc)}">
+ <div class="row"><div><label>Category</label><select id="ec">${CATS.map(c=>`<option ${c===p.category?'selected':''}>${c}</option>`).join('')}</select></div><div style="flex:1"><label>Tags (comma separated)</label><input id="eg" style="width:100%" value="${esc((p.tags||[]).join(', '))}"></div></div>
+ <label>Cover image</label><input type="file" id="ef" accept="image/png,image/jpeg,image/webp"> <span class="mu" id="efm">${p.cover?'Cover set':''}</span>
+ <label>Content</label><div class="tb">${[['bold','B'],['italic','I'],['underline','U'],['justifyLeft','⇤'],['justifyCenter','↔'],['justifyRight','⇥'],['insertUnorderedList','• List']].map(([c,l])=>`<button type="button" data-x="${c}">${l}</button>`).join('')}<select data-sz><option value="">Size</option><option value="2">Small</option><option value="3">Normal</option><option value="5">Large</option><option value="6">Huge</option></select><select data-fn><option value="">Font</option><option>Georgia</option><option>Arial</option><option>Courier New</option></select><button type="button" data-x="link">Link</button><button type="button" data-x="img">Image</button><input type="file" id="ei" accept="image/*" hidden></div>
+ <div class="ed" id="eb" contenteditable="true">${clean(p.content)}</div><div id="pv" class="post box" hidden></div>
+ <div class="row" style="margin-top:14px"><button class="b g" data-a="nav" data-i="home">← Back home</button><button class="b g" data-a="preview">Preview</button><button class="b g" data-a="save" data-i="draft">Save draft</button><button class="b" data-a="save" data-i="published">Publish</button></div></div>`}
+function shrink(f){return new Promise((ok,no)=>{const im=new Image(),u=URL.createObjectURL(f);im.onload=()=>{const w=Math.min(900,im.width),c=document.createElement('canvas');c.width=w;c.height=im.height*w/im.width;c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL('image/jpeg',.7))};im.onerror=()=>no();im.src=u})}
+function render(){editing=false;const r=R();if(r!=='create')cur=cur&&r.startsWith('post-')?cur:null;
+ const nav=[['home','Home'],['explore','Explore Blogs'],['mine','My Blogs'],['create','Create Blog'],['categories','Categories'],['bookmarks','Bookmarks'],['profile','Profile'],['settings','Settings']];
+ $('#root').innerHTML=`<div class="app"><aside class="side"><div class="logo" data-a="nav" data-i="home">✒ Inkwell</div><nav class="nav">${nav.map(([k,l])=>`<a href="#${k}" class="${r===k?'on':''}" data-a="${k==='create'?'new':'nav'}" data-i="${k}">${l}</a>`).join('')}<button data-a="out">Logout</button></nav></aside>
+ <div class="main"><div class="top"><input id="q" type="search" placeholder="Search title and content" value="${esc(S.q)}"><button class="b g" data-a="mode2">◐</button><span class="mu">${esc(me.name)}</span><button class="b g" data-a="out">Logout</button></div><div class="wrap">${view()}</div></div></div>`;
+ const q=$('#q');q.oninput=e=>{S.q=e.target.value;S.page=1;if(!['explore','categories'].includes(R()))location.hash='explore';else{clearTimeout(S.t);S.t=setTimeout(()=>{render();const n=$('#q');n.focus();n.setSelectionRange(99,99)},250)}}}
+async function savePost(status){const title=$('#et').value.trim(),content=clean($('#eb').innerHTML);if(title.length<3)return toast('Title needs at least 3 characters');if(status==='published'&&plain(content).trim().length<10)return toast('Write some content before publishing');
+ const now=Date.now(),d={title,desc:$('#ed').value.trim(),content,category:$('#ec').value,tags:$('#eg').value.split(',').map(t=>t.trim()).filter(Boolean).slice(0,8),cover:cur?.cover||'',status,author:cur?.author||uid,createdAt:cur?.createdAt||now,updatedAt:now};
+ if(S.newCover)d.cover=S.newCover;
+ try{const ref=cur?db.doc('posts/'+cur.id):db.collection('posts').doc();await ref.set(d);toast(status==='published'?'Published':'Draft saved');S.newCover=null;cur=null;editing=false;location.hash='post-'+ref.id}catch(e){toast('Save failed: '+e.message)}}
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-a],[data-x]');if(!t)return;const a=t.dataset.a,i=t.dataset.i,x=t.dataset.x;
+ if(x){e.preventDefault();const b=$('#eb');b.focus();if(x==='link'){const u=prompt('Link URL (https://…)');if(u&&/^https?:/i.test(u))document.execCommand('createLink',false,u)}else if(x==='img')$('#ei').click();else document.execCommand(x);return}
+ if(['delc','new','nav','goex'].includes(a))e.preventDefault();
+ try{
+ if(a==='open')location.hash='post-'+i;
+ else if(a==='nav'||a==='goex'){const k=a==='goex'?'explore':i;editing=false;S.page=1;location.hash=k;render();scrollTo(0,0)}
+ else if(a==='new'){cur=null;S.newCover=null;location.hash='create';render()}
+ else if(a==='cat'){S.cat=S.cat===i?'':i;S.page=1;if(!['explore','categories'].includes(R()))location.hash='explore';else render()}
+ else if(a==='pg'){S.page=+i;render();scrollTo(0,0)}
+ else if(a==='like'){const r=db.doc('likes/'+i+'_'+uid);S.likes.some(l=>l.id===i+'_'+uid)?await r.delete():await r.set({post:i,user:uid})}
+ else if(a==='mark'){const r=db.doc(`data/users/${uid}/bookmarks/${i}`);S.marks.has(i)?await r.delete():await r.set({at:Date.now()})}
+ else if(a==='share'){const u=location.href;if(navigator.share)await navigator.share({title:'Inkwell',url:u}).catch(()=>{});else{try{await navigator.clipboard.writeText(u);toast('Link copied')}catch(_){toast('Copy the address bar link to share')}}}
+ else if(a==='edit'){cur=S.posts.find(p=>p.id===i);S.newCover=null;location.hash='create';render()}
+ else if(a==='del'){if(confirm('Delete this post?')){const ch=S.comments.filter(c=>c.post===i);await db.doc('posts/'+i).delete();await Promise.all(ch.map(c=>db.doc('comments/'+c.id).delete()));toast('Post deleted');location.hash='mine'}}
+ else if(a==='addc'){const v=$('#ct').value.trim();if(!v)return toast('Comment is empty');await db.collection('comments').add({post:i,user:uid,text:v.slice(0,1000),createdAt:Date.now()});toast('Comment added')}
+ else if(a==='delc'){const c=S.comments.find(c=>c.id===i);if(c?.user===uid){await db.doc('comments/'+i).delete();toast('Comment deleted')}}
+ else if(a==='save')await savePost(i);
+ else if(a==='preview'){const p=$('#pv');p.hidden=!p.hidden;p.innerHTML=`<h2>${esc($('#et').value)}</h2>${clean($('#eb').innerHTML)}`}
+ else if(a==='saveprof'){const n=$('#pn').value.trim()||me.name;await db.doc('profiles/'+uid).update({fullName:n});me.name=n;await db.doc(`data/users/${uid}/profile/me`).set({bio:$('#pb').value.slice(0,300)});toast('Profile saved')}
+ else if(a==='chpw'){const cp=$('#cp').value,np=$('#np').value;if(np.length<8)return toast('New password needs 8+ characters');await api.put('/auth/password',{current:cp,next:np});$('#cp').value=$('#np').value='';toast('Password changed')}
+ else if(a==='mode2'){const d=document.documentElement,dark=getComputedStyle(d).getPropertyValue('--bg').trim()==='#121214';ss('theme',dark?'light':'dark');applyPrefs()}
+ else if(a==='out')logout()
+ }catch(err){toast('Something went wrong: '+(err.message||err))}});
+document.addEventListener('change',async e=>{const t=e.target;
+ if(t.dataset.a==='acc'){ss('acc',t.value);applyPrefs()}else if(t.dataset.a==='font'){ss('font',t.value);applyPrefs()}else if(t.dataset.a==='mode'){ss('theme',t.value);applyPrefs()}
+ else if('sz'in t.dataset&&t.value){$('#eb').focus();document.execCommand('fontSize',false,t.value)}else if('fn'in t.dataset&&t.value){$('#eb').focus();document.execCommand('fontName',false,t.value)}
+ else if(t.id==='ef'&&t.files[0]){try{S.newCover=await shrink(t.files[0]);$('#efm').textContent='Cover ready'}catch(_){toast('Could not read that image')}}
+ else if(t.id==='ei'&&t.files[0]){try{const u=await shrink(t.files[0]);$('#eb').focus();document.execCommand('insertImage',false,u)}catch(_){toast('Could not read that image')}}});
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+async function hp(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:120000,hash:'SHA-256'},k,256))}
+const strength=p=>(p.length>=8)+(/[A-Z]/.test(p)&&/[a-z]/.test(p))+/\d/.test(p)+/[^A-Za-z0-9]/.test(p);
+let fails=0,lock=0,tab='in',hashOn=false;
+function store(u,h,rem){try{(rem?localStorage:sessionStorage).setItem('sess',JSON.stringify({u,h}))}catch(e){}}
+function logout(){unsubs.forEach(f=>f());unsubs=[];api.post('/auth/logout').catch(()=>{});Object.assign(S,{profiles:[],posts:[],likes:[],views:[],comments:[],marks:new Set(),ready:{},names:{}});uid=null;location.hash='';showAuth('in');toast('Logged out')}
+function showAuth(t){tab=t;const up=t==='up',f=(id,l,ty='text',x='')=>`<label>${l}</label><input id="${id}" type="${ty}" style="width:100%" ${x}>`;
+ $('#root').innerHTML=`<div class="wrap" style="max-width:430px"><div class="box"><h2>✒ Inkwell</h2><div class="row"><button class="b ${up?'g':''}" data-au="tab" data-t="in">Sign in</button><button class="b ${up?'':'g'}" data-au="tab" data-t="up">Sign up</button></div>
+ ${up?f('fn','Full name')+f('em','Email','email')+f('un','Username'):f('id','Email or username')}
+ <label>Password</label><div class="row"><input id="pw" type="password" style="flex:1"><button class="b g" data-au="eye">Show</button></div>
+ ${up?`<div class="mu" id="sb" style="margin-top:6px">Strength: –</div>${f('pc','Confirm password','password')}`:`<label style="font-weight:400"><input type="checkbox" id="rm"> Remember me</label><a href="#" data-au="forgot">Forgot password?</a>`}
+ <p><button class="b" style="width:100%" data-au="go">${up?'Create account':'Sign in'}</button></p><p class="mu">${up?'Have an account?':'New here?'} <a href="#" data-au="tab" data-t="${up?'in':'up'}">${up?'Sign in':'Sign up'}</a></p></div></div>`;
+ const pw=$('#pw');if(up)pw.oninput=()=>{const s=strength(pw.value);$('#sb').textContent='Strength: '+['Too weak','Weak','Fair','Good','Strong'][s]}}
+async function authGo(){const v=i=>($('#'+i)?.value||''),pw=v('pw');
+ if(tab==='up'){if(pw!==v('pc'))throw Error('Passwords do not match');
+  const r=await api.post('/auth/signup',{fullName:v('fn'),email:v('em'),username:v('un'),password:pw});toast('Welcome!');return enter(r.user.id,r.user)}
+ const r=await api.post('/auth/signin',{identifier:v('id'),password:pw,remember:$('#rm').checked});enter(r.user.id,r.user)}
+function enter(u,p){uid=u;me={name:p.fullName||u};location.hash='home';sub('profiles','profiles');sub('posts','posts');sub('likes','likes');sub('views','views');sub('comments','comments');
+ unsubs.push(db.collection(`data/users/${uid}/bookmarks`).onSnapshot(s=>{S.marks=new Set(s.docs.map(d=>d.id));refresh()}));
+ unsubs.push(db.doc(`data/users/${uid}/profile/me`).onSnapshot(s=>{S.prof=s.data()||{};refresh()}));
+ if(!hashOn){hashOn=true;addEventListener('hashchange',()=>{if(uid){S.page=1;render()}})}render()}
+async function start(){applyPrefs();db=window.remoteDB;
+ try{const r=await api.get('/auth/me');enter(r.user.id,r.user)}catch(e){showAuth('in');if(!e.status)toast(e.message)}}
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-au]');if(!t)return;e.preventDefault();const a=t.dataset.au;
+ if(a==='tab')showAuth(t.dataset.t);else if(a==='eye'){const p=$('#pw'),c=$('#pc');p.type=p.type==='password'?'text':'password';if(c)c.type=p.type;t.textContent=p.type==='text'?'Hide':'Show'}
+ else if(a==='forgot')toast('Password reset by email is not set up yet. Create a new account instead.');
+ else if(a==='go'){t.disabled=true;try{await authGo()}catch(err){toast(err.message||'Something went wrong')}t.disabled=false}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&!uid&&e.target.matches('input')){const b=document.querySelector('[data-au=go]');b&&b.click()}});
+start();
+
+</script>
+</body></html>
