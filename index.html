@@ -31,10 +31,10 @@ textarea{width:100%}button.b{cursor:pointer;background:var(--ac);color:#fff;bord
 </style>
 </head><body><div id="root"><div class="wrap"><div class="sk"></div></div></div><div id="toast"></div>
 <script>
-window.INKWELL_API_URL='https://blogapp-batabase.onrender.com';
+window.INKWELL_API_URL='';
 /* Talks to the Express backend. Gives the app the same db interface it used before. */
 (function () {
-  const BASE = (window.INKWELL_API_URL || 'https://blogapp-batabase.onrender.com').replace(/\/$/, '') + '/api';
+  const BASE = (window.INKWELL_API_URL || '').replace(/\/$/, '') + '/api';
   async function call(method, url, body) {
     let r;
     try { r = await fetch(BASE + url, { method, credentials: 'include', headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined }); }
