@@ -212,6 +212,6 @@ document.addEventListener('click',async e=>{const t=e.target.closest('[data-au]'
  else if(a==='go'){t.disabled=true;try{await authGo()}catch(err){toast(err.message||'Something went wrong')}t.disabled=false}});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&!uid&&e.target.matches('input')){const b=document.querySelector('[data-au=go]');b&&b.click()}});
 start();
-
 </script>
+<script src="forgot.js"></script>
 </body></html>
