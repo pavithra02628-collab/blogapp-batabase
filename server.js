@@ -290,6 +290,7 @@ app.use(cookieParser());
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 app.use('/api/auth', MODS.authRoutes);
 app.use('/api/blogs', require('./crud')(MODS));
+app.use(require('./reset')(MODS));
 app.use('/api/blogs', MODS.blogRoutes);
 app.use('/api/data', rateLimit({ windowMs: 60 * 1000, max: 600 }), MODS.dataRoutes);
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
