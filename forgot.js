@@ -103,3 +103,47 @@
     home ? home.after(a) : nav.prepend(a);
   };
 })();
+/* ---------- Mobile menu behind a three-dots button ---------- */
+(function () {
+  const css = document.createElement('style');
+  css.textContent =
+    '.menu-btn{display:none;font-size:20px;line-height:1;padding:6px 12px}' +
+    '#menu-bd{display:none}' +
+    '@media(max-width:760px){' +
+    '.menu-btn{display:inline-block}' +
+    '.side{position:fixed!important;top:0;right:0;left:auto!important;bottom:0;width:230px!important;height:100vh!important;z-index:40;transform:translateX(110%);transition:transform .25s;overflow-y:auto;border:0!important;border-left:1px solid var(--bd)!important;padding:14px 10px!important}' +
+    '.side.open{transform:none;box-shadow:0 0 30px rgba(0,0,0,.35)}' +
+    '.nav{display:block!important}' +
+    '.nav a,.nav button{width:100%!important;white-space:normal!important;padding:10px 12px!important;font-size:15px!important}' +
+    '#menu-bd.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}' +
+    '.top .mu{display:none}.wrap{padding:12px}.grid{grid-template-columns:1fr}}';
+  document.head.appendChild(css);
+  const bd = document.createElement('div');
+  bd.id = 'menu-bd';
+  document.body.appendChild(bd);
+  let open = false;
+  function apply() {
+    const side = document.querySelector('.side');
+    if (side) side.classList.toggle('open', open);
+    bd.classList.toggle('show', open);
+  }
+  const origRender = window.render;
+  window.render = function () {
+    origRender.apply(this, arguments);
+    const top = document.querySelector('.top');
+    if (top && !top.querySelector('.menu-btn')) {
+      const b = document.createElement('button');
+      b.className = 'b g menu-btn';
+      b.setAttribute('data-menu', '1');
+      b.setAttribute('aria-label', 'Menu');
+      b.textContent = '⋮';
+      top.append(b);
+    }
+    apply();
+  };
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-menu]')) { open = !open; apply(); return; }
+    if (e.target === bd || e.target.closest('.nav a, .nav button')) { open = false; apply(); }
+  }, true);
+  window.addEventListener('resize', () => { if (innerWidth > 760 && open) { open = false; apply(); } });
+})();
