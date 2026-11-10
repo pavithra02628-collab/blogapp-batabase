@@ -111,8 +111,7 @@
     '#menu-bd{display:none}' +
     '@media(max-width:760px){' +
     '.menu-btn{display:inline-block}' +
-    '.side{position:fixed!important;top:0;right:0;left:auto!important;bottom:0;width:230px!important;height:100vh!important;z-index:40;transform:translateX(110%);transition:transform .25s;overflow-y:auto;border:0!important;border-left:1px solid var(--bd)!important;padding:14px 10px!important}' +
-    '.side.open{transform:none;box-shadow:0 0 30px rgba(0,0,0,.35)}' +
+    '.side{position:fixed!important;top:0;left:0;right:auto!important;bottom:0;width:230px!important;height:100vh!important;z-index:40;transform:translateX(-110%);transition:transform .25s;overflow-y:auto;border:0!important;border-right:1px solid var(--bd)!important;padding:14px 10px!important}' +
     '.nav{display:block!important}' +
     '.nav a,.nav button{width:100%!important;white-space:normal!important;padding:10px 12px!important;font-size:15px!important}' +
     '#menu-bd.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}' +
@@ -137,7 +136,7 @@
       b.setAttribute('data-menu', '1');
       b.setAttribute('aria-label', 'Menu');
       b.textContent = '⋮';
-      top.append(b);
+      top.prepend(b);
     }
     apply();
   };
