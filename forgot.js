@@ -64,3 +64,42 @@
     if (t) { e.preventDefault(); e.stopImmediatePropagation(); showForgot(); }
   }, true);
 })();
+
+/* ---------- Module 5: personal Dashboard (only the logged-in user's blogs) ---------- */
+(function () {
+  let cache = null, cacheUid = null, loadedAt = 0, loading = false;
+  function load() {
+    if (cacheUid !== uid) { cache = null; cacheUid = uid; loadedAt = 0; }
+    if (loading || Date.now() - loadedAt < 4000) return;
+    loading = true;
+    // GET /api/blogs/mine: the server returns only the signed-in user's blogs
+    window.api.get('/blogs/mine').then(r => { cache = r.blogs; loadedAt = Date.now(); })
+      .catch(() => {}).then(() => { loading = false; if (R() === 'dashboard') refresh(); });
+  }
+  function dash() {
+    if (!S.ready.posts) return '<div class="grid"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+    load();
+    const mine = (cache || S.posts.filter(p => p.author === uid)).slice().sort((a, b) => b.updatedAt - a.updatedAt);
+    const sum = col => mine.reduce((n, p) => n + cnt(col, p.id), 0);
+    const tile = (n, l) => '<div class="box" style="text-align:center;margin:0"><div style="font-size:28px;font-weight:700">' + n + '</div><div class="mu">' + l + '</div></div>';
+    return '<div class="hero"><h1>Your dashboard</h1><p>Signed in as <b>' + esc(me.name) + '</b> (@' + esc(uid) + '). Only your own blogs are shown here.</p>' +
+      '<div class="row"><button class="b" data-a="new">✍ New blog</button><button class="b g" data-a="nav" data-i="profile">My profile</button><button class="b g" data-a="out">Logout</button></div></div>' +
+      '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:8px">' +
+      tile(mine.length, 'My blogs') + tile(mine.filter(p => p.status === 'published').length, 'Published') +
+      tile(mine.filter(p => p.status === 'draft').length, 'Drafts') + tile(sum(S.likes), 'Likes') +
+      tile(sum(S.views), 'Views') + tile(sum(S.comments), 'Comments') + '</div>' +
+      '<h3>My blogs</h3>' + grid(mine);
+  }
+  const origView = window.view, origRender = window.render;
+  window.view = function () { return R() === 'dashboard' ? dash() : origView.apply(this, arguments); };
+  window.render = function () {
+    origRender.apply(this, arguments);
+    const nav = document.querySelector('.nav');
+    if (!nav || nav.querySelector('[data-i="dashboard"]')) return;
+    const a = document.createElement('a');
+    a.href = '#dashboard'; a.dataset.a = 'nav'; a.dataset.i = 'dashboard'; a.textContent = 'Dashboard';
+    if (R() === 'dashboard') a.className = 'on';
+    const home = nav.querySelector('[data-i="home"]');
+    home ? home.after(a) : nav.prepend(a);
+  };
+})();
